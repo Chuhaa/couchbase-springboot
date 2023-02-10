@@ -1,0 +1,11 @@
+app:
+  couchbase:
+    connection-string: xxx
+    user-name: xx
+    password: xx
+    bucketName: xx
+
+spring:
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false

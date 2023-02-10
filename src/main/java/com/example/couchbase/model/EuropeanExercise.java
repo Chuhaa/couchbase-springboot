@@ -1,0 +1,11 @@
+package com.example.couchbase.model;
+
+import lombok.Data;
+
+import java.util.ArrayList;
+
+@Data
+public class EuropeanExercise {
+    public ArrayList<ExpirationDate> expirationDate;
+    public Meta meta;
+}
