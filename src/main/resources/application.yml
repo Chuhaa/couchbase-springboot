@@ -1,9 +1,9 @@
 app:
   couchbase:
-    connection-string: xxx
-    user-name: xx
-    password: xx
-    bucketName: xx
+    connection-string: couchbase://172.17.0.2
+    user-name: Administrator
+    password: password
+    bucketName: trade
 
 spring:
   jackson:
