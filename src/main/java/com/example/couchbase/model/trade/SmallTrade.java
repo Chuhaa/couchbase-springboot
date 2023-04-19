@@ -1,43 +1,22 @@
 package com.example.couchbase.model.trade;
 
-import com.example.couchbase.model.payloads.ContractDetails;
-import com.example.couchbase.model.payloads.Meta;
-import com.example.couchbase.model.payloads.Trade;
+public class SmallTrade extends TradeEntity {
 
-import java.io.*;
-import java.time.Instant;
-import java.util.stream.Collectors;
+    private static final String  META_GLOBAL_KEY = "SmallTrade";
+    private static final String  META_EXTERNAL_KEY = "SmallTrade";
 
-public class SmallTrade extends  TradeEntity {
+    private static final String  FILE_NAME = "100KB.json";
 
-    private static String description="";
-    public Trade getTrade(int i) {
-        trade = new Trade();
-        trade.setTradeTime(Instant.now());
-        meta = new Meta();
-        meta.setGlobalKey("SmallTrade");
-        meta.setExternalKey("SmallTrade");
-        trade.setMeta(meta);
-        trade.setContractDetails(getContractDetails(i));
-        trade.setExternalRefNumber(i);
-        return trade;
+    public String getMetaGlobalKey(){
+        return META_GLOBAL_KEY;
     }
 
-    public static ContractDetails getContractDetails(int i ) {
+    public String getMetaExternalKey(){
+        return META_EXTERNAL_KEY;
+    }
 
-        ContractDetails contractDetails = new ContractDetails();
-        contractDetails.setContractId(i);
-
-        if(description.isEmpty()){
-
-
-            ClassLoader classLoader = SmallTrade.class.getClassLoader();
-            InputStream  inputStream=classLoader.getResourceAsStream("100KB.json");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            description =  (String)reader.lines().collect(Collectors.joining(System.lineSeparator()));
-        }
-        contractDetails.setDescription(description);
-        return contractDetails;
+    public String getFileName(){
+        return FILE_NAME;
     }
 
 }

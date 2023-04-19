@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -50,9 +52,39 @@ public class TradeService {
             Instant instantEnd = Instant.now();
             duration = duration.plus(Duration.between(instantStart, instantEnd));
         }
-        log.trace("duration in seconds:" + duration.getSeconds());
-        log.trace("duration in millis:" + duration.toMillis());
+        log.info("duration in seconds:" + duration.getSeconds());
+        log.info("duration in millis:" + duration.toMillis());
     }
+
+
+    public Trade getTrade(String id) {
+        Duration duration = Duration.ZERO;
+        Instant instantStart = Instant.now();
+        Optional<Trade> trade = tradeRepository.findById(id);
+        Instant instantEnd = Instant.now();
+        if (trade.isPresent()) {
+            duration = duration.plus(Duration.between(instantStart, instantEnd));
+            log.info("duration in seconds:" + duration.getSeconds());
+            log.info("duration in millis:" + duration.toMillis());
+            return trade.get();
+        } else {
+            throw new RuntimeException("ID not found");
+        }
+    }
+
+    public List<Trade> getTradesByExternalRefNumber(Integer refNumber) {
+        return tradeRepository.findByExternalRefNumber(refNumber);
+    }
+//
+//    public List<Trade> getTradesByContractId(Integer contractId) {
+//        return tradeRepository.findByContractDetailsContractId(contractId);
+//    }
+//
+//    public List<Trade> getTradesByGlobalKey(String globalKey) {
+//        return tradeRepository.findByContractDetailsDescriptionMetaGlobalKey(globalKey);
+//    }
+
+
 
     public void deleteAll() {
         tradeRepository.deleteAll();
